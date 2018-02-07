@@ -6,6 +6,8 @@
 
 {% block main %}
     <form action="/register" method="post">
+
+
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/><br><br>
             <input class="form-control" name="password" placeholder="Password" type="password"/><br><br>
@@ -28,7 +30,7 @@
 
     function isValidEmailAddress(email) {
     var pattern = new RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i);
-    return pattern.test(email);}
+    return pattern.test(email)};
         </script>
         </div>
         <button class="btn btn-primary" type="submit">Register</button>

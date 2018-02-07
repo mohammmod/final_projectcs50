@@ -126,8 +126,6 @@ def register():
     else:
         return render_template("register.html")
 
-
-#@app.route("/start", methods=["GET", "POST"])
 #@login_required
 #def start():
 
