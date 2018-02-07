@@ -23,6 +23,9 @@ class User_Data:
         return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time)",
                                         id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime)
 
+    def get_created_event(self, event_name):
+        return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
+
     def get_available_events(self):
         return self.db.execute("SELECT * FROM events WHERE participant = 1 group by eventname")
 

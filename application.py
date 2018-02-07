@@ -3,7 +3,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, login_required,check_time
+from helpers import apology, login_required, check_time
 from data_base import User_Data
 
 # Configure application
@@ -143,7 +143,7 @@ def createvent():
         eventType = request.form.get("eventType")
         eventtime = request.form.get("eventtime")
 
-        check_time(eventtime)
+        # check_time(eventtime)
 
         if not eventName:
             return apology("please enter the event name")
@@ -156,10 +156,17 @@ def createvent():
 
         if not eventPlace:
             return apology("please enter the event type")
-        # session["id"] = id
+
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
-        ### retrun my page ###
-        return render_template("start.html")
+
+        created_event = sql_man.get_created_event(eventName)
+
+        event_id = created_event[0]["index_id"]
+
+        sql_man.join_event(session["id"], event_id)
+
+        #needs edition to return the right event to the eventspage
+        return render_template("eventspage.html", event=created_event)
     else:
         return render_template("create.html")
 
