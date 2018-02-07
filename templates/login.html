@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="fullscreen-bg">
+        <video loop autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="runvideo">
+            <source src="/static/video1.mp4" vid.playbackRate = -1; />
+
+        </video>
+    </div>
+
+    <script>
+        var vid = document.getElementById("runvideo");
+
+        function playVid() {
+            vid.play();
+        }
+
+        function pauseVid() {
+            vid.pause();
+
+        }
+    </script>
+
+<body>
+
+    <form action="/login" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password"/>
+        </div>
+        <div class = "login">
+            <button class = "btn btn-outline-success" type = "submit">Log In</button>
+        </div>
+
+        <div class="button">
+            <button onclick="playVid()" type="button" class = "btn btn-primary">Play</button>
+        <button onclick="pauseVid()" type="button" class = "btn btn-primary">Pause</button>
+        </div>
+
+    </form>
+{% endblock %}

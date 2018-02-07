@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    events
+{% endblock %}
+
+{% block main %}
+<body background = "static/dark.jpg">
+
+    </body>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Place</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Time</th>
+            <th>Join</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+            <tr>
+              <td><a href="/event/{{event.index_id}}">{{ event.eventname }}<a/></td>
+             <td>{{ event.place }}</td>
+              <td>{{ event.date }}</td>
+              <td>{{ event.type }}</td>
+              <td>{{ event.time }}</td>
+              <td>
+                <form name="join" method="post" action="/eventspage">
+                  <button class="btn btn-secondary btn-sm" name="join" type="submit" action="/index" value="{{event.index_id}}">Join</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+<!--a href= "#"
+            id="place"
+            name="eventPlace"
+            data-map-container-id="location-map-container"
+            data-latitude-input="lat"
+            data-longitude-input="lng"
+            placeholder="Enter a location"
+        /-->

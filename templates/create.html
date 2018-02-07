@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Event
+{% endblock %}
+
+{% block main %}
+<form action="/create" method="post">
+    <div class="form-group">
+        <h6><label for="name" >Name :</label></h6>
+        <input type="text" class="form-control" id="name" name="eventName" placeholder="Enter name" />
+    </div>
+
+    <body background = "/static/dark.jpg">
+    </body>
+    <div class="form-group">
+        <h6><label for="location">Location :</label></h6>
+        <input class="form-control placepicker"
+            id="place"
+            name="eventPlace"
+            data-map-container-id="location-map-container"
+            data-latitude-input="lat"
+            data-longitude-input="lng"
+            placeholder="Enter a location"
+        />
+        <div id="location-map-container" class="collapse">
+            <div class="placepicker-map thumbnail"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <h6><label for="date">Date :</label></h6>
+        <input type="date" class="form-control" name="eventDate" id="date" placeholder="Enter date" />
+    </div>
+
+    <div class="form-group">
+            <h6><label for="type">Type :</label></h6>
+            <input type="text" class="form-control" name="eventType" id="type" placeholder="Enter type" />
+        </div>
+
+    <div class="form-group">
+        <h6><label for="time">Time :</label></h6>
+        <input type="time" class="form-control" name="eventtime" id="time"/>
+    </div>
+
+    <input type="hidden" name="lat" id="lat" />
+    <input type="hidden" name="lng" id="lng" />
+
+    <div class = "create">
+            <button class = "btn btn-primary" type = "submit">Create</button>
+        </div>
+</form>
+
+<script>
+    const placepicker = $('.placepicker').placepicker({
+        placeChanged: function () {
+            const latLng = this.getLatLng();
+            $('#lat').val(latLng.lat());
+            $('#lng').val(latLng.lng());
+        }
+    });
+</script>
+
+
+{% endblock %}

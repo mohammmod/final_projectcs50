@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Event
+{% endblock %}
+
+{% block main %}
+<form action="/event" method="post">
+  <body background = "/static/dark.jpg">
+    </body>
+    <table style="width:100%" class="table_style">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Place</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Participants</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ event[0]["eventname"] }}</td>
+            <td>{{ event[0]["place"] }}</td>
+            <td>{{ event[0]["date"] }}</td>
+            <td>{{ event[0]["type"] }}</td>
+            {% for participant in participants %}
+                <td>{{ participant["user_name"] }}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
+    </table>
+</form>
+{% endblock %}

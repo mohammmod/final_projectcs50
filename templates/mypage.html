@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mypage
+{% endblock %}
+
+{% block main %}
+<form action="/mypage" method="post">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Place</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Leave</th>
+            <!--<th>Participants</th>-->
+          </tr>
+        </thead>
+        <tbody>
+         <body background = "static/dark.jpg">
+
+    </body>
+            {% for event in events %}
+          <tr>
+            <td>{{ event.eventname }}</td>
+            <td>{{ event.place }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.type }}</td>
+            <td>
+              <form name="leave" method="post" action="/mypage">
+                <button class="btn btn-secondary btn-sm" name="leave" type="submit" action="/index" value="{{event.index_id}}">Leave</button>
+              </form>
+            </td>
+          </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+{% endblock %}

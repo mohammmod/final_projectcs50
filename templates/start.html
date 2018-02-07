@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+     <body background = "static/dark.jpg">
+
+    </body>
+
+    <h2><center>hello people</center></h2>
+    <h5><center>here you could deiced whether to have good cheap or to stay as you are</center></h4><br>
+
+        <div class="form-group">
+            <div style='float: left;'>
+            <form action="/create" method="get">
+                <button  type="submit" class="btn btn-outline-primary">Create an event</button>
+            </form>
+            </div>
+            <div style='float: right;'>
+            <form action="/eventspage" method="get">
+                <button  type="submit" class="btn btn-outline-primary" style float="text/css">
+                </style>Join an event </button>
+            </form>
+            </div>
+        </div>
+{% endblock %}

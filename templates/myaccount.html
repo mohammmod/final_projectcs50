@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    myaccount
+{% endblock %}
+
+{% block main %}
+
+    <body background = "static/dark.jpg">
+
+    </body>
+
+    <form action="/myaccount" method="post">
+        <div class="form-group">
+            <h6>Name :</h6><input id = "myDIV"  autocomplete="off" autofocus class="form-control" name="username" placeholder="change user name" type="text"/><br>
+            <h6>Email :</h6> <input id = "myDIV" class="form-control" name="email" placeholder="email" type="email" id="valid_email" class="validate"/><br>
+            <h6>Password :</h6><input class="form-control" name="password" placeholder="Password" type="password"/><br>
+           <h6>Confirmation :</h6><input class="form-control" name="confirmation" placeholder="password again" type="password"/><br>
+            <h6>Old Password :</h6><input class="form-control" name="old_password" placeholder="old password" type="password"/><br>
+
+        </div>
+
+       <div class = "login">
+            <button class = "btn btn-primary" type = "submit">Change</button>
+        </div>
+    </form>
+{% endblock %}
