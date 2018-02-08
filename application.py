@@ -3,7 +3,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, login_required,check_time
+from helpers import apology, login_required, check_time
 from data_base import User_Data
 from werkzeug.utils import secure_filename
 import os
@@ -155,6 +155,10 @@ def register():
     else:
         return render_template("register.html")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 022feed8a3c45f2f4648336f153ca6bf2efe7c22
 @app.route("/create", methods=["GET", "POST"])
 @login_required
 def createvent():
@@ -165,8 +169,9 @@ def createvent():
         eventPlace = request.form.get("eventPlace")
         eventType = request.form.get("eventType")
         eventtime = request.form.get("eventtime")
+        description = request.form.get("description")
 
-        check_time(eventtime)
+        # check_time(eventtime)
 
         if not eventName:
             return apology("please enter the event name")
@@ -179,10 +184,20 @@ def createvent():
 
         if not eventPlace:
             return apology("please enter the event type")
-        # session["id"] = id
-        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
-        ### retrun my page ###
-        return render_template("start.html")
+
+        if not eventPlace:
+            return apology("please write a description")
+
+        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
+
+        created_event = sql_man.get_created_event(eventName)
+
+        event_id = created_event[0]["index_id"]
+
+        sql_man.join_event(session["id"], event_id)
+
+        #needs edition to return the right event to the eventspage
+        return render_template("event.html", event=created_event)
     else:
         return render_template("create.html")
 

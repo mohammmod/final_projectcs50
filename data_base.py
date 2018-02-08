@@ -19,9 +19,12 @@ class User_Data:
     def check_user(self, email):
         return self.db.execute("SELECT * FROM users WHERE email = :email", email = email)
 
-    def create_new_event(self, id, eventDate, eventPlace, eventType, eventName,eventtime):
-        return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time)",
-                                        id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime)
+    def create_new_event(self, id, eventDate, eventPlace, eventType, eventName,eventtime, description):
+        return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time, description) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time, :description)",
+                                        id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime, description=description)
+
+    def get_created_event(self, event_name):
+        return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
 
     def get_available_events(self):
         return self.db.execute("SELECT * FROM events WHERE participant = 1 group by eventname")
