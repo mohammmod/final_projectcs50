@@ -127,11 +127,6 @@ def register():
         return render_template("register.html")
 
 
-#@app.route("/start", methods=["GET", "POST"])
-#@login_required
-#def start():
-
-
 @app.route("/create", methods=["GET", "POST"])
 @login_required
 def createvent():
@@ -142,6 +137,7 @@ def createvent():
         eventPlace = request.form.get("eventPlace")
         eventType = request.form.get("eventType")
         eventtime = request.form.get("eventtime")
+        description = request.form.get("description")
 
         # check_time(eventtime)
 
@@ -157,7 +153,10 @@ def createvent():
         if not eventPlace:
             return apology("please enter the event type")
 
-        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
+        if not eventPlace:
+            return apology("please write a description")
+
+        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
 
         created_event = sql_man.get_created_event(eventName)
 
@@ -166,7 +165,7 @@ def createvent():
         sql_man.join_event(session["id"], event_id)
 
         #needs edition to return the right event to the eventspage
-        return render_template("eventspage.html", event=created_event)
+        return render_template("event.html", event=created_event)
     else:
         return render_template("create.html")
 
