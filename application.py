@@ -185,13 +185,6 @@ def createvent():
             return apology("please enter the event descrtipshen")
 
 
-#        if not eventP:
- #           return apology("please enter the event type")
-
-     #   new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
-
- #       if not eventPlace:
-#            return apology("please write a description")
 
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
 
@@ -282,7 +275,7 @@ def myaccount():
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
         old_password = request.form.get("oldpassword")
-
+      #  image = request.form("file")
         if password != confirmation:
             return apology("sorry password not match")
 
@@ -297,6 +290,26 @@ def myaccount():
             if len(hashee) != 1 or not check_password_hash(hashee[0]["hash"], request.form.get("oldpassword")):
                 sql_man.update_user_password(password,session["id"])
                 flash("password changed")
+
+
+        file = request.files['file']
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        #if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect("/myaccount")
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            image = file.filename
+            sql_man.update_user_photo(image,session["id"])
+            flash("upload file")
+
+
         return redirect("/")
    # done.
     return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"])

@@ -26,8 +26,8 @@ class User_Data:
     def get_created_event(self, event_name):
         return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
 
-    def get_created_event(self, event_name):
-        return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
+#    def get_created_event(self, event_name):
+ #       return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
 
     def get_available_events(self):
         return self.db.execute("SELECT * FROM events WHERE participant = 1 group by eventname")
@@ -85,3 +85,6 @@ class User_Data:
 
     def update_user_name(self, name ,session):
         return self.db.execute("UPDATE users SET username = :name where id = :user_id",name = name,user_id = session)
+
+    def update_user_photo(self,image,id):
+        return self.db.execute("UPDATE users SET image = :image where id = :user_id",image = image,user_id = id)
