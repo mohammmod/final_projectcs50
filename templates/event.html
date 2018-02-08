@@ -15,8 +15,8 @@
             <th>Place</th>
             <th>Date</th>
             <th>Type</th>
-            <th>participants</th>
             <th>Description</th>
+            <th>participants</th>
           </tr>
         </thead>
         <tbody>
@@ -25,10 +25,10 @@
             <td>{{ event[0]["place"] }}</td>
             <td>{{ event[0]["date"] }}</td>
             <td>{{ event[0]["type"] }}</td>
+            <td>{{ event[0]["description"] }}</td>
             {% for participant in participants %}
                 <td>{{ participant["user_name"] }}</td>
             {% endfor %}
-            <td>{{ event[0]["description"] }}</td>
           </tr>
         </tbody>
     </table>
