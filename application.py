@@ -178,14 +178,15 @@ def createvent():
         if not eventType:
             return apology("please enter the event type")
 
-        if not eventTime:
+        if not eventtime:
             return apology("please enter the event date")
 
         if not description:
-            return apology("please enter the event place")
+            return apology("please enter the event descrtipshen")
 
-        if not eventP:
-            return apology("please enter the event type")
+
+#        if not eventP:
+ #           return apology("please enter the event type")
 
      #   new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
 
