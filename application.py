@@ -1,14 +1,19 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required, check_time
 from data_base import User_Data
+from werkzeug.utils import secure_filename
+import os
 
+
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 # Configure application
 app = Flask(__name__)
-
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure responses aren't cached
 @app.after_request
@@ -45,6 +50,16 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -95,12 +110,24 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         email = request.form.get("email")
-
         # Ensure username was submitted
         if not request.form.get("email"):
             return apology("Missing the E-mail")
         if not request.form.get("username"):
             return apology("Missing the name")
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # Ensure password was submitted
         elif not request.form.get("password"):
@@ -111,9 +138,10 @@ def register():
 
         # Insert the data of the seller
         hash = generate_password_hash(password)
+        image = file.filename
 
         # Insert the data of the new user
-        newUser = sql_man.create_user(username, hash, email)
+        newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
             return apology("You are Already registered", 400)
 
@@ -122,7 +150,8 @@ def register():
 
         # Redirect user to register page
         flash("Welcome " + username)
-        return redirect("/")
+        return redirect(url_for('index',
+                                    filename=filename))
     else:
         return render_template("register.html")
 

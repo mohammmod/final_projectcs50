@@ -9,9 +9,9 @@ class User_Data:
         # Configure CS50 Library to use SQLite database
         self.db = SQL("sqlite:///sport.db")
 
-    def create_user(self, username, hash, email):
-        return self.db.execute("INSERT INTO users (username, hash, email) VALUES(:username,:hash, :email)",
-                                    username=username,hash= hash, email=email)
+    def create_user(self, username, hash, email, image):
+        return self.db.execute("INSERT INTO users (username, hash, email,image) VALUES(:username,:hash, :email,:image)",
+                                    username=username,hash= hash, email=email,image=image)
 
     def get_user_info(self, username):
         return self.db.execute("SELECT * FROM users WHERE username = :username", username=username)
