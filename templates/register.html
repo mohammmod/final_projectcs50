@@ -5,21 +5,17 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/register" method="post">
-
+    <!--form action="/register" method="post"-->
+    <form action="/register" enctype="multipart/form-data" method="POST">
 
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/><br><br>
             <input class="form-control" name="password" placeholder="Password" type="password"/><br><br>
             <input class="form-control" name="confirmation" placeholder="password again" type="password"/><br><br>
             <input class="form-control" name="email" placeholder="email" type="email" id="valid_email" class="validate"/><br><br>
-             <input type="file" name="pic" accept="image/*">
-             <form action="upload.php" method="post" enctype="multipart/form-data">
-    #Select image to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" value="Upload Image" name="submit">
-        </form>
+            <input type="file" name="file" placeholder ="upload photo">
              <script >
+             /*global $*/
         $('.validate').hide();
         $('body').on('blur', '#valid_email', function() {
         $('.validate').hide();
@@ -32,7 +28,8 @@
     var pattern = new RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i);
     return pattern.test(email)};
         </script>
+
         </div>
-        <button class="btn btn-primary" type="submit">Register</button>
+        <button class="btn btn-primary" type="submit" value = "uploads">Register</button>
     </form>
 {% endblock %}

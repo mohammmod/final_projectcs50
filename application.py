@@ -1,13 +1,20 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, login_required, check_time
+from werkzeug.utils import secure_filename
+from helpers import apology, login_required,check_time ,allowed_file
 from data_base import User_Data
+import os
+
+
+UPLOAD_FOLDER = 'uploads'
 
 # Configure application
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 # Ensure responses aren't cached
@@ -95,12 +102,24 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         email = request.form.get("email")
-
         # Ensure username was submitted
         if not request.form.get("email"):
             return apology("Missing the E-mail")
         if not request.form.get("username"):
             return apology("Missing the name")
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # Ensure password was submitted
         elif not request.form.get("password"):
@@ -111,9 +130,10 @@ def register():
 
         # Insert the data of the seller
         hash = generate_password_hash(password)
+        image = file.filename
 
         # Insert the data of the new user
-        newUser = sql_man.create_user(username, hash, email)
+        newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
             return apology("You are Already registered", 400)
 
@@ -122,12 +142,14 @@ def register():
 
         # Redirect user to register page
         flash("Welcome " + username)
-        return redirect("/")
+        return redirect(url_for('index',
+                                    filename=filename))
     else:
         return render_template("register.html")
 
 #@login_required
 #def start():
+
 
 
 @app.route("/create", methods=["GET", "POST"])
@@ -140,6 +162,7 @@ def createvent():
         eventPlace = request.form.get("eventPlace")
         eventType = request.form.get("eventType")
         eventtime = request.form.get("eventtime")
+        description = request.form.get("description")
 
         # check_time(eventtime)
 
@@ -152,10 +175,25 @@ def createvent():
         if not eventPlace:
             return apology("please enter the event place")
 
-        if not eventPlace:
+        if not eventType:
             return apology("please enter the event type")
 
-        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
+        if not eventTime:
+            return apology("please enter the event date")
+
+        if not description:
+            return apology("please enter the event place")
+
+        if not eventP:
+            return apology("please enter the event type")
+
+     #   new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
+
+ #       if not eventPlace:
+#            return apology("please write a description")
+
+        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
+
 
         created_event = sql_man.get_created_event(eventName)
 
@@ -164,7 +202,14 @@ def createvent():
         sql_man.join_event(session["id"], event_id)
 
         #needs edition to return the right event to the eventspage
-        return render_template("eventspage.html", event=created_event)
+
+        #return render_template("eventspage.html", event=created_event)
+
+        return render_template("event.html", event=created_event)
+
+        ### retrun my page ###
+        #return render_template("start.html")
+
     else:
         return render_template("create.html")
 

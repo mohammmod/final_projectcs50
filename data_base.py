@@ -9,9 +9,9 @@ class User_Data:
         # Configure CS50 Library to use SQLite database
         self.db = SQL("sqlite:///sport.db")
 
-    def create_user(self, username, hash, email):
-        return self.db.execute("INSERT INTO users (username, hash, email) VALUES(:username,:hash, :email)",
-                                    username=username,hash= hash, email=email)
+    def create_user(self, username, hash, email, image):
+        return self.db.execute("INSERT INTO users (username, hash, email,image) VALUES(:username,:hash, :email,:image)",
+                                    username=username,hash= hash, email=email,image=image)
 
     def get_user_info(self, username):
         return self.db.execute("SELECT * FROM users WHERE username = :username", username=username)
@@ -19,9 +19,12 @@ class User_Data:
     def check_user(self, email):
         return self.db.execute("SELECT * FROM users WHERE email = :email", email = email)
 
-    def create_new_event(self, id, eventDate, eventPlace, eventType, eventName,eventtime):
-        return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time)",
-                                        id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime)
+    def create_new_event(self, id, eventDate, eventPlace, eventType, eventName,eventtime, description):
+        return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time, description) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time, :description)",
+                                        id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime, description=description)
+
+    def get_created_event(self, event_name):
+        return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
 
     def get_created_event(self, event_name):
         return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
