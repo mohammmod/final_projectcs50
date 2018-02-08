@@ -3,17 +3,19 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, login_required, check_time
-from data_base import User_Data
 from werkzeug.utils import secure_filename
+from helpers import apology, login_required,check_time ,allowed_file
+from data_base import User_Data
 import os
 
 
 UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 # Configure application
 app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -50,16 +52,6 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -155,6 +147,10 @@ def register():
     else:
         return render_template("register.html")
 
+#@login_required
+#def start():
+
+
 
 @app.route("/create", methods=["GET", "POST"])
 @login_required
@@ -179,11 +175,16 @@ def createvent():
         if not eventPlace:
             return apology("please enter the event place")
 
-        if not eventPlace:
+        if not eventType:
             return apology("please enter the event type")
 
-        if not eventPlace:
-            return apology("please write a description")
+        new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
+
+        if not eventtime:
+            return apology("please enter the event date")
+
+        if not description:
+            return apology("please enter the event descrtipshen")
 
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
 
@@ -193,7 +194,7 @@ def createvent():
 
         sql_man.join_event(session["id"], event_id)
 
-        #needs edition to return the right event to the eventspage
+        ### retrun my page ###
         return render_template("event.html", event=created_event)
     else:
         return render_template("create.html")

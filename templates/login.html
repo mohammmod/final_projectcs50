@@ -8,7 +8,7 @@
 
 
     <div class="fullscreen-bg">
-        <video loop autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="runvideo">
+        <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="runvideo">
             <source src="/static/video1.mp4" vid.playbackRate = -1; />
 
         </video>
@@ -29,7 +29,7 @@
     </script>
 
 
-<body>
+    <!--body-->
 
 
     <form action="/login" method="post">
@@ -48,7 +48,13 @@
         <button onclick="pauseVid()" type="button" class = "btn btn-primary">Pause</button>
         </div>
 
-        <p>Print</p></p>
+
+        <p style='float: right;' fontsize="20%">this website is made to allow you <br>
+        find sport events in the places near you<br>
+        you can also create events of any type of<br>
+        sports and people can see your event and join it
+        </p>
+
 
     </form>
 {% endblock %}
