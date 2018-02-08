@@ -7,6 +7,9 @@ from flask import redirect, render_template, request, session
 from functools import wraps
 
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
 def apology(message, code=400):
     """Renders message as an apology to user."""
     def escape(s):
@@ -48,4 +51,9 @@ def check_time(year):
     if int(date[2])<int(now.day):
         return False
     return True
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
