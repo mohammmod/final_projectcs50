@@ -155,10 +155,7 @@ def register():
     else:
         return render_template("register.html")
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 022feed8a3c45f2f4648336f153ca6bf2efe7c22
 @app.route("/create", methods=["GET", "POST"])
 @login_required
 def createvent():
