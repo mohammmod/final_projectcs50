@@ -239,7 +239,6 @@ def eventspage():
     else:
         return render_template("eventspage.html", events = events)
 
-
 @app.route("/mypage", methods=["GET", "POST"])
 @login_required
 def get_mypage():
