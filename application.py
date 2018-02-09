@@ -7,7 +7,12 @@ from werkzeug.utils import secure_filename
 from helpers import apology, login_required,check_time ,allowed_file
 from data_base import User_Data
 import os
+import smtplib
 
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login("sportseventsforyou@gmail.com", "ThaerYazen")
+msg = "Welcome in Sport Events Webpage"
 
 UPLOAD_FOLDER = 'uploads'
 
@@ -117,6 +122,7 @@ def register():
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
+        print("b")
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -127,21 +133,26 @@ def register():
 
         elif request.form.get("password") != request.form.get("confirmation"):
             return apology("not match")
-
+        print("a")
         # Insert the data of the seller
         hash = generate_password_hash(password)
+        print("c")
         image = file.filename
+        print("1")
 
         # Insert the data of the new user
         newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
             return apology("You are Already registered", 400)
-
+        print("2")
         # Remember which user has logged in
         session["id"] = newUser
-
+        print("3")
+        server.sendmail("sportseventsforyou@gmail.com", email, msg)
+        server.quit()
         # Redirect user to register page
         flash("Welcome " + username)
+        print("4")
         return redirect(url_for('index',
                                     filename=filename))
     else:
@@ -182,16 +193,8 @@ def createvent():
             return apology("please enter the event date")
 
         if not description:
-            return apology("please enter the event descrtipshen")
+            return apology("please enter the event place")
 
-
-#        if not eventP:
- #           return apology("please enter the event type")
-
-     #   new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
-
- #       if not eventPlace:
-#            return apology("please write a description")
 
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
 
