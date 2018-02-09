@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for
+from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for,jsonify
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
@@ -313,3 +313,13 @@ def myaccount():
         return redirect("/")
    # done.
     return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"])
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    """Search for places that match query"""
+
+    city = request.args.get("q")
+    postCode =sql_man.get_the_places(city)
+
+    return jsonify(postCode)
