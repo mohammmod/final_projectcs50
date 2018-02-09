@@ -19,6 +19,12 @@
             <th>Join</th>
           </tr>
         </thead>
+        <center><form id="form" >
+                <div class="form-group">
+                    <label class="sr-only" for="q">City, State, Postal Code</label>
+                    <input class="form-control" id="q" placeholder="City, State, Postal Code" type="text"/>
+                </div>
+            </form></center>
         <tbody>
           {% for event in events %}
             <tr>

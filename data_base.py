@@ -82,3 +82,10 @@ class User_Data:
 
     def update_user_name(self, name ,session):
         return self.db.execute("UPDATE users SET username = :name where id = :user_id",name = name,user_id = session)
+
+    def update_user_photo(self,image,id):
+        return self.db.execute("UPDATE users SET image = :image where id = :user_id",image = image,user_id = id)
+
+    def get_the_places(self, city):
+        return self.db.execute("SELECT * from places where (postal_code like :postcode) or (place_name  like :name) or (admin_name1 like :state)"
+        ,postcode = city + '%',name = city +'%' , state = city + '%')

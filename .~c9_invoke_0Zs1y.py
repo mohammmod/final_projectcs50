@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for,jsonify
+from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
@@ -184,7 +184,17 @@ def createvent():
         if not description:
             return apology("please enter the event descrtipshen")
 
+
+#        if not eventP:
+ #           return apology("please enter the event type")
+
+     #   new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime)
+
+ #       if not eventPlace:
+#            return apology("please write a description")
+
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
+
 
         created_event = sql_man.get_created_event(eventName)
 
@@ -192,8 +202,15 @@ def createvent():
 
         sql_man.join_event(session["id"], event_id)
 
-        ### retrun my page ###
+        #needs edition to return the right event to the eventspage
+
+        #return render_template("eventspage.html", event=created_event)
+
         return render_template("event.html", event=created_event)
+
+        ### retrun my page ###
+        #return render_template("start.html")
+
     else:
         return render_template("create.html")
 
@@ -265,7 +282,7 @@ def myaccount():
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
         old_password = request.form.get("oldpassword")
-      #  image = request.form("file")
+
         if password != confirmation:
             return apology("sorry password not match")
 
@@ -280,36 +297,6 @@ def myaccount():
             if len(hashee) != 1 or not check_password_hash(hashee[0]["hash"], request.form.get("oldpassword")):
                 sql_man.update_user_password(password,session["id"])
                 flash("password changed")
-
-
-        file = request.files['file']
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        #if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect("/myaccount")
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            image = file.filename
-            sql_man.update_user_photo(image,session["id"])
-            flash("upload file")
-
-
         return redirect("/")
    # done.
     return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"])
-
-
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    """Search for places that match query"""
-
-    city = request.args.get("q")
-    postCode =sql_man.get_the_places(city)
-
-    return jsonify(postCode)
