@@ -45,7 +45,7 @@ body {
 }
 
 .fullscreen-bg{
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
@@ -55,8 +55,8 @@ body {
 }
 
 .fullscreen-bg__video{
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: -40;
     left: 0;
     width: 100%;
     height: auto;
@@ -129,6 +129,36 @@ body {
     width:200px;
 }
 
+
+.figure{
+    position: absolute;
+    left:18%;
+    top:40%;
+    margin:auto;
+}
+
+.figure2{
+    position: absolute;
+    left:36%;
+    top:40%;
+    margin:auto;
+}
+
+.figure3{
+    position: absolute;
+    left:54%;
+    top:40%;
+    margin:auto;
+}
+
+.figure4{
+    position:absolute;
+    left:72%;
+    top:40%;
+    margin:auto;
+}
+
+
 .profile-picture {
     border-color: blue;
     border-width: 1px;
@@ -137,3 +167,4 @@ body {
     width: 70px;
     height: 70px;
   }
+

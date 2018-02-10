@@ -64,20 +64,20 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        # Ensure username was submitted
+       # Ensure username was submitted
         if not username:
-            return apology("must provide username", 403)
+             return apology("must provide username", 403)
 
         # Ensure password was submitted
         if not password:
-            return apology("must provide password", 403)
+           return apology("must provide password", 403)
 
-        # Query database for username
+        # # # Query database for username
         rows = sql_man.get_user_info(username)
 
-        # Ensure username exists and password is correct
+        # # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+             return apology("invalid username and/or password", 403)
 
         # Remember which user has logged in
         session["id"] = rows[0]["id"]
@@ -152,6 +152,19 @@ def register():
         return render_template("mypage.html", events=events, image=image)
     else:
         return render_template("register.html")
+
+
+
+#@app.route("/start", methods=["GET", "POST"])
+#@login_required
+#def start():
+
+@app.route("/AboutUs", methods=["GET", "POST"])
+def AboutUs():
+    """AboutUs"""
+    return render_template("AboutUs.html")
+    # make this clean
+    # Forget any user_id
 
 @app.route("/create", methods=["GET", "POST"])
 @login_required
