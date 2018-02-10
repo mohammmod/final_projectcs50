@@ -6,32 +6,22 @@
 
 {% block main %}
 
+<br></br><h1><blod><center>Hello in Sport Finder Website</center></blod></h1>
 
     <div class="fullscreen-bg">
-        <video loop autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="runvideo">
-            <source src="/static/video1.mp4" vid.playbackRate = -1; />
+        <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="runvideo">
+            <source src="/static/Videos/video3.mp4" vid.playbackRate = -1; />
 
         </video>
     </div>
 
-    <script>
-        var vid = document.getElementById("runvideo");
-
-        function playVid() {
-            vid.play();
-        }
-
-        function pauseVid() {
-            vid.pause();
-
-        }
-
-    </script>
 
 
 <body>
-    <p>hello there!</p>
 
+<div class = "p">
+<p style="text-align:center;" style = "color:#2e944b";>We are happy to provide our Sport event service to you that will allow you creating any sport event you like.</p>
+</div>
     <form action="/login" method="post">
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
@@ -43,12 +33,6 @@
             <button class = "btn btn-outline-success" type = "submit">Log In</button>
         </div>
 
-        <div class="button">
-            <button onclick="playVid()" type="button" class = "btn btn-primary">Play</button>
-        <button onclick="pauseVid()" type="button" class = "btn btn-primary">Pause</button>
-        </div>
-
-        <p>Print</p></p>
-
     </form>
+
 {% endblock %}

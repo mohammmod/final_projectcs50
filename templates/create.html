@@ -11,7 +11,8 @@
         <input type="text" class="form-control" id="name" name="eventName" placeholder="Enter name" />
     </div>
 
-    <body background = "/static/dark.jpg">
+    <body background = "static/Images/dark.jpg">
+
     </body>
     <div class="form-group">
         <h6><label for="location">Location :</label></h6>
@@ -32,15 +33,38 @@
         <input type="date" class="form-control" name="eventDate" id="date" placeholder="Enter date" />
     </div>
 
-    <div class="form-group">
-            <h6><label for="type">Type :</label></h6>
-            <input type="text" class="form-control" name="eventType" id="type" placeholder="Enter type" />
-        </div>
 
     <div class="form-group">
         <h6><label for="time">Time :</label></h6>
         <input type="time" class="form-control" name="eventtime" id="time"/>
     </div>
+
+
+    <div class = "form-group">
+        <h6><label for="type">Type :</label></h6>
+        <select id = "type">
+            <option value = "" selected="selected">Select Sport</option>
+            <option value = "1">Football</option>
+            <option value = "2">Basketball</option>
+            <option value = "3">Runnings</option>
+            <option value = "4">WinterSports</option>
+            <option value = "5">Climbing</option>
+            <option value = "6">Biking</option>
+            <option value = "7">Soccer</option>
+        </select>
+    </div>
+
+    <br></br>
+
+        <!--       <option value = "1">football</option>-->
+        <!--       <option value = "3">basketball</option>-->
+        <!--       <option value = "4">runing</option>-->
+        <!--       <option value = "5">bike</option>-->
+        <!--       <option value = "6">ski</option>-->
+        <!--       <option value = "7">winter sports</option>-->
+        <!--</select>-->
+
+
 
     <input type="hidden" name="lat" id="lat" />
     <input type="hidden" name="lng" id="lng" />
