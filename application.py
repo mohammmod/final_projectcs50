@@ -7,6 +7,12 @@ from werkzeug.utils import secure_filename
 from helpers import apology, login_required,check_time ,allowed_file
 from data_base import User_Data
 import os
+import smtplib
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login("sportseventsforyou@gmail.com", "ThaerYazen")
+msg = "Welcome in Sport Events Webpage"
 
 
 UPLOAD_FOLDER = 'static'
@@ -137,7 +143,10 @@ def register():
         # Insert the data of the new user
         newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
-            return apology("You are Already registered", 400)\
+            return apology("You are Already registered", 400)
+
+        server.sendmail("sportseventsforyou@gmail.com", email, msg)
+        server.quit()
 
         # Remember which user has logged in
         session["id"] = newUser
@@ -163,8 +172,7 @@ def register():
 def AboutUs():
     """AboutUs"""
     return render_template("AboutUs.html")
-    # make this clean
-    # Forget any user_id
+
 
 @app.route("/create", methods=["GET", "POST"])
 @login_required
