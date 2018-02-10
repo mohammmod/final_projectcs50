@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block main %}
-<form action="/mypage" method="post">
+<form action="/mypage" enctype="multipart/form-data" method="post">
+
     <table class="table">
         <thead>
           <tr>
@@ -19,6 +20,8 @@
         </thead>
         <tbody>
          <body background = "static/dark.jpg">
+
+    <img  class="profile-picture" src="static/{{image}}">
 
     </body>
             {% for event in events %}

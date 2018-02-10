@@ -9,7 +9,7 @@ from data_base import User_Data
 import os
 
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'static'
 
 # Configure application
 app = Flask(__name__)
@@ -92,31 +92,33 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-
     # Forget any user_id
     session.clear()
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-
         username = request.form.get("username")
         password = request.form.get("password")
         email = request.form.get("email")
+
         # Ensure username was submitted
         if not request.form.get("email"):
             return apology("Missing the E-mail")
         if not request.form.get("username"):
             return apology("Missing the name")
+
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
+
         # if user does not select file, browser also
-        # submit a empty part without filename
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
+
+        # submit a empty part without filename
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -135,22 +137,21 @@ def register():
         # Insert the data of the new user
         newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
-            return apology("You are Already registered", 400)
+            return apology("You are Already registered", 400)\
 
         # Remember which user has logged in
         session["id"] = newUser
 
+        #bring user info and events
+        user = sql_man.get_user_infomation(session["id"])
+        image = user[0]["image"]
+        events = sql_man.get_my_events(session["id"])
+
         # Redirect user to register page
         flash("Welcome " + username)
-        return redirect(url_for('index',
-                                    filename=filename))
+        return render_template("mypage.html", events=events, image=image)
     else:
         return render_template("register.html")
-
-#@login_required
-#def start():
-
-
 
 @app.route("/create", methods=["GET", "POST"])
 @login_required
@@ -236,7 +237,6 @@ def get_mypage():
     events = sql_man.get_my_events(session["id"])
     if request.method == "POST":
         left_event = request.form.get("leave")
-       # print(left_event)
         sql_man.leave_event(session["id"], left_event)
         participants = sql_man.show_participants(left_event)
         if not participants:
@@ -244,7 +244,9 @@ def get_mypage():
         events = sql_man.get_my_events(session["id"])
         flash("you left the event")
         return render_template("mypage.html", events=events)
-    return render_template("mypage.html", events=events)
+    user = sql_man.get_user_infomation(session["id"])
+    image = user[0]["image"]
+    return render_template("mypage.html", events=events, image=image)
 
 @app.route("/event/<int:index_id>", methods=["GET", "POST"])
 @login_required
