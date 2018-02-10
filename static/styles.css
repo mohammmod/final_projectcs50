@@ -129,6 +129,7 @@ body {
     width:200px;
 }
 
+
 .figure{
     position: absolute;
     left:18%;
@@ -156,4 +157,14 @@ body {
     top:40%;
     margin:auto;
 }
+
+
+.profile-picture {
+    border-color: blue;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10%;
+    width: 70px;
+    height: 70px;
+  }
 

@@ -9,9 +9,9 @@ class User_Data:
         # Configure CS50 Library to use SQLite database
         self.db = SQL("sqlite:///sport.db")
 
-    def create_user(self, username, hash, email):
-        return self.db.execute("INSERT INTO users (username, hash, email) VALUES(:username,:hash, :email)",
-                                    username=username,hash= hash, email=email)
+    def create_user(self, username, hash, email, image):
+        return self.db.execute("INSERT INTO users (username, hash, email,image) VALUES(:username,:hash, :email,:image)",
+                                    username=username,hash= hash, email=email,image=image)
 
     def get_user_info(self, username):
         return self.db.execute("SELECT * FROM users WHERE username = :username", username=username)
@@ -19,9 +19,12 @@ class User_Data:
     def check_user(self, email):
         return self.db.execute("SELECT * FROM users WHERE email = :email", email = email)
 
-    def create_new_event(self, id, eventDate, eventPlace, eventType, eventName,eventtime):
-        return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time)",
-                                        id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime)
+    def create_new_event(self, id, eventDate, eventPlace, eventType, eventName,eventtime, description):
+        return self.db.execute("INSERT INTO events (id ,date, place, type, eventname, created, joined,time, description) VALUES (:id, :date, :place, :type, :eventname, :true, :false,:time, :description)",
+                                        id=id, date = eventDate, place = eventPlace ,type = eventType, eventname = eventName, true=1, false=0,time = eventtime, description=description)
+
+    def get_created_event(self, event_name):
+        return self.db.execute("SELECT * FROM events WHERE eventname = :eventName", eventName = event_name)
 
     def get_available_events(self):
         return self.db.execute("SELECT * FROM events WHERE participant = 1 group by eventname")
@@ -79,3 +82,10 @@ class User_Data:
 
     def update_user_name(self, name ,session):
         return self.db.execute("UPDATE users SET username = :name where id = :user_id",name = name,user_id = session)
+
+    def update_user_photo(self,image,id):
+        return self.db.execute("UPDATE users SET image = :image where id = :user_id",image = image,user_id = id)
+
+    def get_the_places(self, city):
+        return self.db.execute("SELECT * from places where (postal_code like :postcode) or (place_name  like :name) or (admin_name1 like :state)"
+        ,postcode = city + '%',name = city +'%' , state = city + '%')
