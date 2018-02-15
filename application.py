@@ -178,13 +178,15 @@ def AboutUs():
 @login_required
 def createvent():
     """Allow the user to create events from a list"""
+
     if request.method == "POST":
         eventName = request.form.get("eventName")
         eventDate = request.form.get("eventDate")
         eventPlace = request.form.get("eventPlace")
-        eventType = request.form.get("eventType")
+        eventType = request.form.get("som")
         eventtime = request.form.get("eventtime")
         description = request.form.get("description")
+       # print(eventDate)
 
         # check_time(eventtime)
 
@@ -196,8 +198,8 @@ def createvent():
 
         if not eventPlace:
             return apology("please enter the event place")
-
-        if not eventType:
+        options = ["Football","Basketball","Runnings", "WinterSports","Climbing","Biking","Soccer"]
+        if not eventType in options:
             return apology("please enter the event type")
 
         if not eventtime:
@@ -205,17 +207,23 @@ def createvent():
 
         if not description:
             return apology("please enter the event descrtipshen")
+        if not check_time(eventDate):
+            return apology("invalid time")
 
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
 
         created_event = sql_man.get_created_event(eventName)
+
+
 
         event_id = created_event[0]["index_id"]
 
         sql_man.join_event(session["id"], event_id)
 
         ### retrun my page ###
-        return render_template("event.html", event=created_event)
+
+        return redirect('/event/'+ str(event_id))
+        #return render_template("event.html", event=created_event)
     else:
         return render_template("create.html")
 
@@ -255,11 +263,12 @@ def eventspage():
 @login_required
 def get_mypage():
     events = sql_man.get_my_events(session["id"])
+
     if request.method == "POST":
         left_event = request.form.get("leave")
         sql_man.leave_event(session["id"], left_event)
         participants = sql_man.show_participants(left_event)
-        if not participants:
+        if not participants :
             sql_man.delete_event(left_event)
         events = sql_man.get_my_events(session["id"])
         flash("you left the event")

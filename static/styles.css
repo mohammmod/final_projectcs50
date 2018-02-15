@@ -42,6 +42,7 @@ body {
     color :#fff;
 
 
+
 }
 
 .fullscreen-bg{
@@ -67,6 +68,12 @@ body {
 .placepicker-map {
     width: 100%;
     min-height: 200px;
+
+}
+
+.btn-loc {
+     border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 
@@ -118,10 +125,10 @@ body {
     margin:0% 0% 0% 0%;
     border:0px 0px 0px 0px;
     position: absolute;
-     bottom:5%;
-     left:0;
-     opacity:0.4;
-     border-radius:25%;
+    bottom:5%;
+    left:0;
+    opacity:0.4;
+    border-radius:25%;
 }
 
 .btn-outline-primary{
@@ -133,28 +140,28 @@ body {
 .figure{
     position: absolute;
     left:18%;
-    top:40%;
+    top: 40%;
     margin:auto;
 }
 
 .figure2{
     position: absolute;
     left:36%;
-    top:40%;
+    top: 40%;
     margin:auto;
 }
 
 .figure3{
     position: absolute;
     left:54%;
-    top:40%;
+    top: 40%;
     margin:auto;
 }
 
 .figure4{
     position:absolute;
     left:72%;
-    top:40%;
+    top: 40%;
     margin:auto;
 }
 
@@ -166,5 +173,5 @@ body {
     border-radius: 10%;
     width: 70px;
     height: 70px;
-  }
+}
 

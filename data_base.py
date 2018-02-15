@@ -89,3 +89,5 @@ class User_Data:
     def get_the_places(self, city):
         return self.db.execute("SELECT * from places where (postal_code like :postcode) or (place_name  like :name) or (admin_name1 like :state)"
         ,postcode = city + '%',name = city +'%' , state = city + '%')
+
+
