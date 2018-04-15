@@ -40,6 +40,8 @@ main img
 body {
     height: 100%;
     color :#fff;
+    background-repeat: no-repeat;
+    /*background-position: center;*/
 
 
 
@@ -136,35 +138,14 @@ body {
     width:200px;
 }
 
-
-.figure{
-    position: absolute;
-    left:18%;
-    top: 40%;
-    margin:auto;
+.team {
+    display: flex;
+    justify-content: space-between;
 }
 
-.figure2{
-    position: absolute;
-    left:36%;
-    top: 40%;
-    margin:auto;
+.team div, .team p {
+    text-align: center;
 }
-
-.figure3{
-    position: absolute;
-    left:54%;
-    top: 40%;
-    margin:auto;
-}
-
-.figure4{
-    position:absolute;
-    left:72%;
-    top: 40%;
-    margin:auto;
-}
-
 
 .profile-picture {
     border-color: blue;

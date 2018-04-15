@@ -336,11 +336,8 @@ def myaccount():
     return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"])
 
 
-@app.route("/search", methods=["GET", "POST"])
-def search():
+@app.route("/search/<string:index_id>", methods=["GET", "POST"])
+def search(index_id):
     """Search for places that match query"""
 
-    city = request.args.get("q")
-    postCode =sql_man.get_the_places(city)
 
-    return jsonify(postCode)
