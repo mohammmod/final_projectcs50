@@ -8,6 +8,9 @@ from helpers import apology, login_required,check_time ,allowed_file
 from data_base import User_Data
 import os
 import smtplib
+import datetime
+from datetime import datetime as dt
+from dateutil.parser import parse
 
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
@@ -196,7 +199,7 @@ def createvent():
         if not eventDate:
             return apology("please enter the event date")
 
-        if not eventPlace:
+        if not eventPlace and not eventPlace.find("vienna"):
             return apology("please enter the event place")
         options = ["Football","Basketball","Runnings", "WinterSports","Climbing","Biking","Soccer"]
         if not eventType in options:
@@ -239,6 +242,7 @@ def eventspage():
             flash("there are no events yet")
             return render_template("start.html")
 
+
         # knowing which event the user wants to join
         wanted_event = request.form.get("join")
 
@@ -257,6 +261,11 @@ def eventspage():
         flash("you're in!")
         return render_template("eventspage.html", events = events)
     else:
+        now = datetime.datetime.now()
+        for event in events:
+            if parse(event["date"]) <now :
+                sql_man.delete_event(event["id"])
+
         return render_template("eventspage.html", events = events)
 
 @app.route("/mypage", methods=["GET", "POST"])

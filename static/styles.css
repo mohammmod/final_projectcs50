@@ -40,10 +40,9 @@ main img
 body {
     height: 100%;
     color :#fff;
+    background-image:url(../../static/Images/dark.jpg);
     background-repeat: no-repeat;
     /*background-position: center;*/
-
-
 
 }
 
@@ -141,6 +140,13 @@ body {
 .team {
     display: flex;
     justify-content: space-between;
+}
+
+.participant li{
+    display:flex;
+    justify-content: space-around;
+
+
 }
 
 .team div, .team p {

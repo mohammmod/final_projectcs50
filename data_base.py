@@ -59,7 +59,7 @@ class User_Data:
         return self.db.execute("DELETE FROM user_events WHERE user_id = :id and event_id = :event_id", id = id, event_id = event_id)
 
     def delete_event(self,event_id):
-        return self.db.execute("DELETE FROM events WHERE index_id = :event_id",  event_id = event_id)
+        return self.db.execute("DELETE FROM events WHERE id = :event_id",  event_id = event_id)
 
     def show_details(self, event_id):
         return self.db.execute("SELECT * FROM events WHERE index_id = :event_id", event_id = event_id)
