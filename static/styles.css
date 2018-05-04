@@ -9,18 +9,6 @@ nav .navbar-brand .blue
 {
     color: #537fbe;
 }
-nav .navbar-brand .red
-{
-    color:#ea433b ;
-}
-nav .navbar-brand .yellow
-{
-    color:#f5b82e ;
-}
-nav .navbar-brand .green
-{
-    color: #2e944b;
-}
 
 h6{
     text-align: left;
@@ -29,6 +17,7 @@ main
 {
     /* scroll horizontally as needed */
     overflow-x: auto;
+    text-align: center;
 }
 
 main img
@@ -161,4 +150,19 @@ body {
     width: 70px;
     height: 70px;
 }
+
+
+label {
+   cursor: pointer;
+}
+
+#upload-photo {
+   opacity: 0;
+   position: absolute;
+   z-index: -1;
+}
+
+
+
+
 

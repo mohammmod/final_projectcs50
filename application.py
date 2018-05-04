@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for,jsonify
+from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
@@ -98,13 +98,13 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
     # Forget any user_id
     session.clear()
-
-    # User reached route via POST (as by submitting a form via POST)
+    # User reac hed route via POST (as by submitting a form via POST)
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -142,7 +142,6 @@ def register():
         # Insert the data of the seller
         hash = generate_password_hash(password)
         image = file.filename
-
         # Insert the data of the new user
         newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
@@ -161,7 +160,8 @@ def register():
 
         # Redirect user to register page
         flash("Welcome " + username)
-        return render_template("mypage.html", events=events, image=image)
+        return redirect("/")
+     #   return render_template("mypage.html", events=events, image=image)
     else:
         return render_template("register.html")
 

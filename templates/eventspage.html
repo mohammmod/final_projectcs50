@@ -19,12 +19,6 @@
             <th>Join</th>
           </tr>
         </thead>
-        <center><form id="form" >
-                <div class="form-group">
-                    <label class="sr-only" for="q">City, State, Postal Code</label>
-                    <input class="form-control" id="q" placeholder="City, State, Postal Code" type="text"/>
-                </div>
-            </form></center>
         <tbody>
           {% for event in events %}
             <tr>
@@ -34,6 +28,7 @@
               <td>{{ event.type }}</td>
               <td>{{ event.time }}</td>
               <td>
+
                 <form name="join" method="post" action="/eventspage">
                   <button class="btn btn-secondary btn-sm" name="join" type="submit" action="/index" value="{{event.index_id}}">Join</button>
                 </form>
