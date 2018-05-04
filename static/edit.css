@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo');
+
+
+
+.navbar-expand-md{
+    z-index:5;
+    background-color:rgba(0, 20 , 20, 0.8);
+}
+
+.header .navbar-expand-md{
+    z-index:5;
+    background-color:rgba(0, 20 , 20, 0.8);
+}
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff !important;
+    font-style: italic;
+    transition: 1s;
+    text-decoration: none;
+}
+
+
+
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 250px !important;
+    height: 250px !important;
+    border: 3px solid rgba(0, 20, 20, 0.8);
+}
+
+/* ########### animation navbar icon ################*/
+button{
+    cursor: pointer;
+}
+
+/*################## table ######################*/
+
+.edit{
+    background-color:rgb(255, 255 , 255);
+    color:rgb(0, 20 , 20);
+    -webkit-transition: 0.7s;
+    transition: 0.7s;
+    width: 68%;
+    font-weight: 800;
+}
+.edit:hover{
+    background-color:rgba(0, 20 , 20, 0.8);
+    color:#fff;
+}
+.img__wrap {
+  position: relative;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  width: 250px;
+  margin: auto;
+  border-radius: 50%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgba(0, 20 , 20, 0.8);
+}
+.overlay:hover {
+  opacity: 1;
+  cursor:pointer;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+/*################## table ######################*/

@@ -6,17 +6,27 @@
 
 {% block main %}
 
-   <body background = "static/Images/dark.jpg"></body>
 
 
     <!--form action="/register" method="post"-->
+    <br/>
+    <br>
     <form action="/register" enctype="multipart/form-data" method="POST">
 
+        <div class="img__wrap"><img  class="img-fluid rounded-circle" id="image-preview" src="https://statics.oneplus.net/v3/img/promotion/photo/upload-icon.png"/>
+            <div class="overlay" onclick="HandleBrowseClick('image_edit');">
+                <!--div class="text"><input type="file" name="file"/>Upload new image</div-->
+                <label class="text" for="upload-photo">upload new image</label>
+                <input type="file" name="file" id="upload-photo" />
+            </div>
+        </div>
+        <br>
+        <hr>
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/><br><br>
-            <input class="form-control" name="password" placeholder="Password" type="password"/><br><br>
-            <input class="form-control" name="confirmation" placeholder="password again" type="password"/><br><br>
-            <input class="form-control" name="email" placeholder="email" type="email" id="valid_email" class="validate"/><br><br>
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
+            <input class="form-control" name="password" placeholder="Password" type="password"/>
+            <input class="form-control" name="confirmation" placeholder="password again" type="password"/>
+            <input class="form-control" name="email" placeholder="email" type="email" id="valid_email" class="validate"/>
 
 
        <!--form method=post enctype=multipart/form-data>
@@ -24,7 +34,7 @@
          <input type=submit value=Upload>
     </form-->
 
-            <input type="file" name="file" placeholder ="upload photo">
+            <!--input type="file" name="file" placeholder ="upload photo"-->
 
              <script >
              /*global $*/

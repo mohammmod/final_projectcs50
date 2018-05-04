@@ -9,10 +9,10 @@
   <body background = "static/Images/dark.jpg">
 
     </body>
-    <table style="width:100%" class="table_style">
+    <!--table style="width:100%" class="table_style">
         <thead>
           <tr>
-            <th>Event</th>
+            <th>Eve</th>
             <th>Place</th>
             <th>Date</th>
             <th>Type</th>
@@ -32,6 +32,19 @@
             {% endfor %}
           </tr>
         </tbody>
-    </table>
+    </table-->
+
+ <center>  <h2>{{ event[0]["eventname"] }}</h2>
+<h4>{{ event[0]["date"] }}</h4>
+<p>{{ event[0]["description"] }}</p>
+<p>{{ event[0]["type"] }}</p>
+<p>this event going to be at {{ event[0]["place"] }}</p></center>
+<div id="participant" class="participant">
+<ul>
+  {% for participant in participants %}
+    <li>{{ participant["user_name"] }}</li>
+  {% endfor %}
+</ul>
+</div>
 </form>
 {% endblock %}

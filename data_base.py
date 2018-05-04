@@ -59,7 +59,7 @@ class User_Data:
         return self.db.execute("DELETE FROM user_events WHERE user_id = :id and event_id = :event_id", id = id, event_id = event_id)
 
     def delete_event(self,event_id):
-        return self.db.execute("DELETE FROM events WHERE index_id = :event_id",  event_id = event_id)
+        return self.db.execute("DELETE FROM events WHERE id = :event_id",  event_id = event_id)
 
     def show_details(self, event_id):
         return self.db.execute("SELECT * FROM events WHERE index_id = :event_id", event_id = event_id)
@@ -86,6 +86,4 @@ class User_Data:
     def update_user_photo(self,image,id):
         return self.db.execute("UPDATE users SET image = :image where id = :user_id",image = image,user_id = id)
 
-    def get_the_places(self, city):
-        return self.db.execute("SELECT * from places where (postal_code like :postcode) or (place_name  like :name) or (admin_name1 like :state)"
-        ,postcode = city + '%',name = city +'%' , state = city + '%')
+

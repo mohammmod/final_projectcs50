@@ -44,12 +44,24 @@ def check_time(year):
     date = []
     date = year.split("-")
     now = datetime.datetime.now()
-    if int(date[0]) < int(now.year):
+
+    if int(date[0]) < int(now.year) or int(date[0]) > (int(now.year)+2):
         return False
+
+    if int(date[0]) > int(now.year):
+        return True
+
     if int(date[1]) < int(now.month):
         return False
+
+    if int(date[1]) > int(now.month):
+        return True
+
     if int(date[2])<int(now.day):
         return False
+
+    if int(date[2])>int(now.day):
+        return True
     return True
 
 def allowed_file(filename):

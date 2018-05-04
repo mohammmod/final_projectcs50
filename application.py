@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for,jsonify
+from flask import Flask, flash, redirect, render_template, request, session,send_from_directory, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
@@ -8,6 +8,9 @@ from helpers import apology, login_required,check_time ,allowed_file
 from data_base import User_Data
 import os
 import smtplib
+import datetime
+from datetime import datetime as dt
+from dateutil.parser import parse
 
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
@@ -95,13 +98,13 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
     # Forget any user_id
     session.clear()
-
-    # User reached route via POST (as by submitting a form via POST)
+    # User reac hed route via POST (as by submitting a form via POST)
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -139,7 +142,6 @@ def register():
         # Insert the data of the seller
         hash = generate_password_hash(password)
         image = file.filename
-
         # Insert the data of the new user
         newUser = sql_man.create_user(username, hash, email ,image)
         if not newUser:
@@ -158,7 +160,8 @@ def register():
 
         # Redirect user to register page
         flash("Welcome " + username)
-        return render_template("mypage.html", events=events, image=image)
+        return redirect("/")
+     #   return render_template("mypage.html", events=events, image=image)
     else:
         return render_template("register.html")
 
@@ -178,13 +181,15 @@ def AboutUs():
 @login_required
 def createvent():
     """Allow the user to create events from a list"""
+
     if request.method == "POST":
         eventName = request.form.get("eventName")
         eventDate = request.form.get("eventDate")
         eventPlace = request.form.get("eventPlace")
-        eventType = request.form.get("eventType")
+        eventType = request.form.get("som")
         eventtime = request.form.get("eventtime")
         description = request.form.get("description")
+       # print(eventDate)
 
         # check_time(eventtime)
 
@@ -194,10 +199,10 @@ def createvent():
         if not eventDate:
             return apology("please enter the event date")
 
-        if not eventPlace:
+        if not eventPlace and not eventPlace.find("vienna"):
             return apology("please enter the event place")
-
-        if not eventType:
+        options = ["Football","Basketball","Runnings", "WinterSports","Climbing","Biking","Soccer"]
+        if not eventType in options:
             return apology("please enter the event type")
 
         if not eventtime:
@@ -205,17 +210,23 @@ def createvent():
 
         if not description:
             return apology("please enter the event descrtipshen")
+        if not check_time(eventDate):
+            return apology("invalid time")
 
         new_event = sql_man.create_new_event(session["id"], eventDate, eventPlace, eventType, eventName,eventtime, description)
 
         created_event = sql_man.get_created_event(eventName)
+
+
 
         event_id = created_event[0]["index_id"]
 
         sql_man.join_event(session["id"], event_id)
 
         ### retrun my page ###
-        return render_template("event.html", event=created_event)
+
+        return redirect('/event/'+ str(event_id))
+        #return render_template("event.html", event=created_event)
     else:
         return render_template("create.html")
 
@@ -230,6 +241,7 @@ def eventspage():
         if not events:
             flash("there are no events yet")
             return render_template("start.html")
+
 
         # knowing which event the user wants to join
         wanted_event = request.form.get("join")
@@ -249,17 +261,23 @@ def eventspage():
         flash("you're in!")
         return render_template("eventspage.html", events = events)
     else:
+        now = datetime.datetime.now()
+        for event in events:
+            if parse(event["date"]) <now :
+                sql_man.delete_event(event["id"])
+
         return render_template("eventspage.html", events = events)
 
 @app.route("/mypage", methods=["GET", "POST"])
 @login_required
 def get_mypage():
     events = sql_man.get_my_events(session["id"])
+
     if request.method == "POST":
         left_event = request.form.get("leave")
         sql_man.leave_event(session["id"], left_event)
         participants = sql_man.show_participants(left_event)
-        if not participants:
+        if not participants :
             sql_man.delete_event(left_event)
         events = sql_man.get_my_events(session["id"])
         flash("you left the event")
@@ -327,11 +345,8 @@ def myaccount():
     return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"])
 
 
-@app.route("/search", methods=["GET", "POST"])
-def search():
+@app.route("/search/<string:index_id>", methods=["GET", "POST"])
+def search(index_id):
     """Search for places that match query"""
 
-    city = request.args.get("q")
-    postCode =sql_man.get_the_places(city)
 
-    return jsonify(postCode)

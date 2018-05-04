@@ -9,18 +9,6 @@ nav .navbar-brand .blue
 {
     color: #537fbe;
 }
-nav .navbar-brand .red
-{
-    color:#ea433b ;
-}
-nav .navbar-brand .yellow
-{
-    color:#f5b82e ;
-}
-nav .navbar-brand .green
-{
-    color: #2e944b;
-}
 
 h6{
     text-align: left;
@@ -29,6 +17,7 @@ main
 {
     /* scroll horizontally as needed */
     overflow-x: auto;
+    text-align: center;
 }
 
 main img
@@ -40,7 +29,9 @@ main img
 body {
     height: 100%;
     color :#fff;
-
+    background-image:url(../../static/Images/dark.jpg);
+    background-repeat: no-repeat;
+    /*background-position: center;*/
 
 }
 
@@ -67,6 +58,12 @@ body {
 .placepicker-map {
     width: 100%;
     min-height: 200px;
+
+}
+
+.btn-loc {
+     border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 
@@ -118,10 +115,10 @@ body {
     margin:0% 0% 0% 0%;
     border:0px 0px 0px 0px;
     position: absolute;
-     bottom:5%;
-     left:0;
-     opacity:0.4;
-     border-radius:25%;
+    bottom:5%;
+    left:0;
+    opacity:0.4;
+    border-radius:25%;
 }
 
 .btn-outline-primary{
@@ -129,35 +126,21 @@ body {
     width:200px;
 }
 
-
-.figure{
-    position: absolute;
-    left:18%;
-    top:40%;
-    margin:auto;
+.team {
+    display: flex;
+    justify-content: space-between;
 }
 
-.figure2{
-    position: absolute;
-    left:36%;
-    top:40%;
-    margin:auto;
+.participant li{
+    display:flex;
+    justify-content: space-around;
+
+
 }
 
-.figure3{
-    position: absolute;
-    left:54%;
-    top:40%;
-    margin:auto;
+.team div, .team p {
+    text-align: center;
 }
-
-.figure4{
-    position:absolute;
-    left:72%;
-    top:40%;
-    margin:auto;
-}
-
 
 .profile-picture {
     border-color: blue;
@@ -166,5 +149,20 @@ body {
     border-radius: 10%;
     width: 70px;
     height: 70px;
-  }
+}
+
+
+label {
+   cursor: pointer;
+}
+
+#upload-photo {
+   opacity: 0;
+   position: absolute;
+   z-index: -1;
+}
+
+
+
+
 
