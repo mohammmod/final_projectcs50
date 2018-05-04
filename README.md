@@ -23,7 +23,7 @@ open project interpreter ``` Ctrl + Alt + S ``` and add _**venv**_
 2. Pip Install flask // web server
 3. pip install Flask_session || easy_install Flask_session
 4. pip install flask_socketio
-
+5. pip install python-dateutil
 
 Run the app locally:
 
