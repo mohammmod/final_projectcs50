@@ -21,7 +21,9 @@
         <tbody>
          <body background = "static/Images/dark.jpg">
 
-    <center><img  class="profile-picture" src="static/user_images/{{image}}"></center>
+    <div class="img__wrap"><img  class="img-fluid rounded-circle" id="image-preview" src="static/{{image}}"/>
+
+        </div>
 
     </body>
             {% for event in events %}

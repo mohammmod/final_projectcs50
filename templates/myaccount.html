@@ -11,13 +11,20 @@
     </body>
 
     <form action="/myaccount" method="post" enctype="multipart/form-data">
+        <div class="img__wrap"><img  class="img-fluid rounded-circle" id="image-preview" src="static/{{image}}"/>
+            <div class="overlay" onclick="HandleBrowseClick('image_edit');">
+                <!--div class="text"><input type="file" name="file"/>Upload new image</div-->
+                <label class="text" for="upload-photo">upload new image</label>
+                <input type="file" name="file" id="upload-photo" />
+            </div>
+        </div>
         <div class="form-group">
-            <h6>Name :</h6><input id = "myDIV"  autocomplete="off" autofocus class="form-control" name="username" placeholder="change user name" type="text"/><br>
-            <h6>Email :</h6> <input id = "myDIV" class="form-control" name="email" placeholder="email" type="email" id="valid_email" class="validate"/><br>
-            <h6>Password :</h6><input class="form-control" name="password" placeholder="Password" type="password"/><br>
-           <h6>Confirmation :</h6><input class="form-control" name="confirmation" placeholder="password again" type="password"/><br>
-            <h6>Old Password :</h6><input class="form-control" name="old_password" placeholder="old password" type="password"/><br>
-            <input  type="file" name="file" placeholder ="upload photo">
+            <h6>Name :</h6><input id = "myDIV"  autocomplete="off" autofocus class="form-control" name="username" placeholder="change user name" type="text"/>
+            <h6>Email :</h6> <input id = "myDIV" class="form-control" name="email" placeholder="email" type="email" id="valid_email" class="validate"/>
+            <h6>Password :</h6><input class="form-control" name="password" placeholder="Password" type="password"/>
+           <h6>Confirmation :</h6><input class="form-control" name="confirmation" placeholder="password again" type="password"/>
+            <h6>Old Password :</h6><input class="form-control" name="old_password" placeholder="old password" type="password"/>
+            <!--input  type="file" name="file" placeholder ="upload photo"-->
 
         </div>
 
