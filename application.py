@@ -342,7 +342,7 @@ def myaccount():
 
         return redirect("/")
    # done.
-    return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"])
+    return render_template("myaccount.html",name = users[0]["username"], email = users[0]["email"],image=users[0]["image"] )
 
 
 @app.route("/search/<string:index_id>", methods=["GET", "POST"])
