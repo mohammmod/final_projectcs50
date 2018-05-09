@@ -31,6 +31,7 @@ body {
     color :#fff;
     background-image:url(../../static/Images/dark.jpg);
     background-repeat: no-repeat;
+    background-attachment: fixed;
     /*background-position: center;*/
 
 }
