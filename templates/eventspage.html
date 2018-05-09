@@ -30,7 +30,11 @@
               <td>
 
                 <form name="join" method="post" action="/eventspage">
+                   {% if button == true %}
                   <button class="btn btn-secondary btn-sm" name="join" type="submit" action="/index" value="{{event.index_id}}">Join</button>
+                   {% else %}
+                   <button class="btn btn-secondary btn-sm" name="join" type="submit" action="/index" value="{{event.index_id}}">leave</button>
+                   {% endif %}
                 </form>
               </td>
             </tr>

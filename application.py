@@ -112,9 +112,11 @@ def register():
 
         # Ensure username was submitted
         if not request.form.get("email"):
-            return apology("Missing the E-mail")
+    #        return apology("Missing the E-mail")
+            return  redirect(request.url)
         if not request.form.get("username"):
-            return apology("Missing the name")
+           # return apology("Missing the name")
+            return  redirect(request.url)
 
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -134,8 +136,8 @@ def register():
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
-
+       #     return apology("must provide password")
+            return  redirect(request.url)
         elif request.form.get("password") != request.form.get("confirmation"):
             return apology("not match")
 
@@ -245,6 +247,8 @@ def eventspage():
 
         # knowing which event the user wants to join
         wanted_event = request.form.get("join")
+        left_event = request.form.get("leave")
+
 
         # getting details for wanted event
         event_details = request.form.get("veiwDetails")
@@ -253,20 +257,23 @@ def eventspage():
             render_template("event.html", event = event_details)
 
         if sql_man.already_participant(session["id"], wanted_event):
+        #    sql_man.leave_event(session["id"], left_event)
             flash("you're already participating!")
-            return render_template("eventspage.html", events = events)
+            button = True
+            return render_template("eventspage.html", events = events, button = button)
 
         # adding participant to the event
         sql_man.join_event(session["id"], wanted_event)
+        button = False
         flash("you're in!")
-        return render_template("eventspage.html", events = events)
+        return render_template("eventspage.html", events = events,button=button)
     else:
         now = datetime.datetime.now()
         for event in events:
             if parse(event["date"]) <now :
                 sql_man.delete_event(event["id"])
-
-        return render_template("eventspage.html", events = events)
+        button=True
+        return render_template("eventspage.html", events = events,button=button)
 
 @app.route("/mypage", methods=["GET", "POST"])
 @login_required
