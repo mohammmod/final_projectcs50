@@ -30,3 +30,5 @@ Added to this s/he will have his/her image on this list.
 there will be also my account option where the user will be able to change his/her name, password, or even image.
 
 and for sure there will be "about us" option which is one page that displays our team and the people who have to work on this project
+
+and here you will find the video for it: https://www.youtube.com/watch?v=5bF9BLzmjqI
