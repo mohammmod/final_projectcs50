@@ -46,5 +46,5 @@ Run the app locally:
 <ul>
    <li> yazan kassoua: https://github.com/Yazanwolf
    <li>thaer ohda:https://github.com/Thaerohde
-   <il>Nourallah Takie Alddin:https://github.com/nourallahtq
+   <il> Nourallah Takie Alddin:https://github.com/nourallahtq
 </ul>
